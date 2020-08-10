@@ -56,7 +56,8 @@ LRESULT	CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	static int cxClient, cyClient;
 
 	HPEN hPen, hOldPen;
-	HBRUSH hBlueBrush, hOldBrush, hRedBrush;
+	HBRUSH hBlueBrush, hOldBrush, hRedBrush, hYellowBrush;
+	POINT apt[4];
 
 	switch (message) {
 	case WM_CREATE:
@@ -114,8 +115,92 @@ LRESULT	CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		Arc(hdc, cxClient / 2 - 70, cyClient / 2 - 120, cxClient / 2 + 70, cyClient / 2 - 30, \
 			cxClient / 2 - 60, cyClient / 2 - 60, cxClient / 2 + 60, cyClient / 2 - 60);
 
+		// ºúÐë
+		MoveToEx(hdc, cxClient / 2 - 70, cyClient / 2 - 115, NULL);
+		LineTo(hdc, cxClient / 2 - 20, cyClient / 2 - 100);
+		MoveToEx(hdc, cxClient / 2 - 80, cyClient / 2 - 85, NULL);
+		LineTo(hdc, cxClient / 2 - 20, cyClient / 2 - 85);
+		MoveToEx(hdc, cxClient / 2 - 70, cyClient / 2 - 55, NULL);
+		LineTo(hdc, cxClient / 2 - 20, cyClient / 2 - 70);
 
+		MoveToEx(hdc, cxClient / 2 + 70, cyClient / 2 - 115, NULL);
+		LineTo(hdc, cxClient / 2 + 20, cyClient / 2 - 100);
+		MoveToEx(hdc, cxClient / 2 + 80, cyClient / 2 - 85, NULL);
+		LineTo(hdc, cxClient / 2 + 20, cyClient / 2 - 85);
+		MoveToEx(hdc, cxClient / 2 + 70, cyClient / 2 - 55, NULL);
+		LineTo(hdc, cxClient / 2 + 20, cyClient / 2 - 70);
 
+		// ÉíÌå
+		hOldBrush = (HBRUSH)SelectObject(hdc, hBlueBrush);
+		Rectangle(hdc, cxClient / 2 - 90, cyClient / 2, cxClient / 2 + 90, cyClient / 2 + 150);
+		SelectObject(hdc, hOldBrush);
+
+		// ¶ÇÆ¤
+		Ellipse(hdc, cxClient / 2 - 70, cyClient / 2 - 20, cxClient / 2 + 70, cyClient / 2 + 120);
+		hPen = CreatePen(PS_SOLID, 2, RGB(255, 255, 255));
+		hOldPen = (HPEN)SelectObject(hdc, hPen);
+		Arc(hdc, cxClient / 2 - 70, cyClient / 2 - 20, cxClient / 2 + 70, cyClient / 2 + 120,\
+			cxClient/2+60,cyClient/2-10,cxClient/2-60,cyClient/2-10);
+		SelectObject(hdc, hOldPen);
+		
+		// ÏîÈ¦
+		hOldBrush = (HBRUSH)SelectObject(hdc, hRedBrush);
+		RoundRect(hdc, cxClient / 2 - 95, cyClient / 2 - 5, cxClient / 2 + 95, cyClient / 2 + 10, \
+			20, 20);
+		SelectObject(hdc, hOldBrush);
+
+		// Áåîõ
+		hYellowBrush = (HBRUSH)CreateSolidBrush(RGB(255, 255, 0));
+		hOldBrush = (HBRUSH)SelectObject(hdc, hYellowBrush);
+		Ellipse(hdc, cxClient / 2 - 15, cyClient / 2, cxClient / 2 + 15, cyClient / 2 + 30);
+		RoundRect(hdc, cxClient / 2 - 15, cyClient / 2 + 10, cxClient / 2 + 15, cyClient / 2 + 15, 2, 2);
+		SelectObject(hdc, hRedBrush);
+		Ellipse(hdc, cxClient / 2 - 4, cyClient / 2 + 18, cxClient / 2 + 4, cyClient / 2 + 26);
+		MoveToEx(hdc, cxClient / 2, cyClient / 2 + 26, NULL);
+		LineTo(hdc, cxClient / 2, cyClient / 2 + 30);
+
+		SelectObject(hdc, hOldBrush);
+
+		// ¿Ú´ü
+		Pie(hdc, cxClient / 2 - 50, cyClient / 2, cxClient / 2 + 50, cyClient / 2 + 100, \
+			cxClient / 2 - 50, cyClient / 2 + 50, cxClient / 2 + 50, cyClient / 2 + 50);
+		// Ellipse(hdc, cxClient / 2 - 50, cyClient / 2, cxClient / 2 + 50, cyClient / 2 + 100);
+
+		// ¿ãñÉ
+		Pie(hdc, cxClient / 2 - 20, cyClient / 2 + 130, cxClient / 2 + 20, cyClient / 2 + 170, \
+			cxClient / 2 + 20, cyClient / 2 + 150, cxClient / 2 - 20, cyClient / 2 + 150);
+		hPen = (HPEN)CreatePen(PS_SOLID, 2, RGB(255, 255, 255));
+		hOldPen = (HPEN)SelectObject(hdc, hPen);
+		MoveToEx(hdc, cxClient / 2 - 20, cyClient / 2 + 150, NULL);
+		LineTo(hdc, cxClient / 2 + 20, cyClient / 2 + 150);
+		SelectObject(hdc, hOldPen);
+
+		// ½ÅÑ¾
+		Ellipse(hdc, cxClient / 2 - 110, cyClient / 2 + 130, cxClient / 2 - 10, cyClient / 2 + 170);
+		Ellipse(hdc, cxClient / 2 + 10, cyClient / 2 + 130, cxClient / 2 + 110, cyClient / 2 + 170);
+
+		// ÊÖ
+		hOldBrush = (HBRUSH)SelectObject(hdc, hBlueBrush);
+		apt[0].x = cxClient / 2 - 90;
+		apt[0].y = cyClient / 2 + 10;
+		apt[1].x = cxClient / 2 - 130;
+		apt[1].y = cyClient / 2 + 50;
+		apt[2].x = cxClient / 2 - 110;
+		apt[2].y = cyClient / 2 + 70;
+		apt[3].x = cxClient / 2 - 90;
+		apt[3].y = cyClient / 2 + 60;
+		Polygon(hdc, apt, 4);
+		apt[0].x = cxClient / 2 + 90;
+		apt[0].y = cyClient / 2 + 10;
+		apt[1].x = cxClient / 2 + 130;
+		apt[1].y = cyClient / 2 + 50;
+		apt[2].x = cxClient / 2 + 110;
+		apt[2].y = cyClient / 2 + 70;
+		apt[3].x = cxClient / 2 + 90;
+		apt[3].y = cyClient / 2 + 60;
+		Polygon(hdc, apt, 4);
+
+		SelectObject(hdc, hOldBrush);
 
 		EndPaint(hwnd, &ps);
 		return 0;
